@@ -15,6 +15,9 @@ import numpy as np
 #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/python3.10/dist-packages/nvidia/cudnn/lib/
 
 
+TRT (does not work):
+pip install tensorrt==8.6.1
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/workspace/anaconda3/envs/sd_env/lib/python3.11/site-packages/tensorrt_libs/
 '''
 
 
@@ -42,7 +45,7 @@ def safe_check(images, **kwargs):
 
 
 # https://huggingface.co/stabilityai/stable-diffusion-2-1/discussions/23
-pipe = OnnxStableDiffusionPipeline.from_pretrained(model_path, provider="CUDAExecutionProvider")
+pipe = OnnxStableDiffusionPipeline.from_pretrained(model_path, provider="CUDAExecutionProvider") #'TensorrtExecutionProvider'
 pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
 #pipe = pipe.to("cuda")
 

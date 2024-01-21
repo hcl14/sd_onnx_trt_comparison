@@ -10,6 +10,11 @@ import numpy as np
 '''
 pip install diffusers torch omegaconf compel onnx onnxruntime-gpu accelerate
 
+mkdir checkponts && cd checkpoints
+wget "https://civitai.com/api/download/models/245598?type=Model&format=SafeTensor&size=pruned&fp=fp16" --content-disposition
+
+cd ..
+
 '''
 
 
@@ -73,7 +78,9 @@ for i in range(5):
     generator = torch.Generator(device="cuda").manual_seed(2325031155)
     start = time.time()
 
-    image = pipe(prompt_embeds=prompt_embed, negative_prompt_embeds=neg_prompt_embed, height=640, width=512, num_inference_steps = 25, guidance_scale = 7, generator = generator).images[0]
+    #image = pipe(prompt_embeds=prompt_embed, negative_prompt_embeds=neg_prompt_embed, height=640, width=512, num_inference_steps = 25, guidance_scale = 7, generator = generator).images[0]
+    image = pipe(prompt=prompt, negative_prompt=negative_prompt, height=640, width=512, num_inference_steps = 25, guidance_scale = 7, generator = generator).images[0]
+
 
     times.append(time.time() - start)
 
